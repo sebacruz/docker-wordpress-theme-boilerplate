@@ -7,10 +7,10 @@ services:
       - db_data:/var/lib/mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: somewordpress
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: wordpress
-      MYSQL_PASSWORD: wordpress
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
 
   wordpress:
     depends_on:
@@ -20,12 +20,12 @@ services:
       - "8000:80"
     restart: always
     environment:
-      WORDPRESS_DB_HOST: db:3306
-      WORDPRESS_DB_USER: wordpress
-      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
+      WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
+      WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
     working_dir: /var/www/html
     volumes:
-      - /Users/wsiso/development/wordpress-docker-boilerplate/wp-content:/var/www/html/wp-content
-      - /Users/wsiso/development/wordpress-docker-boilerplate/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+      - ${VOLUME_FOLDER_PATH}/wp-content:/var/www/html/wp-content
+      - ${VOLUME_FOLDER_PATH}/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
 volumes:
     db_data:
