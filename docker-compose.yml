@@ -13,6 +13,13 @@ services:
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
 
+  smtp:
+    image: mailhog/mailhog
+    expose:
+      - 8025
+    ports:
+      - 8025:8025
+
   wordpress:
     depends_on:
       - db
