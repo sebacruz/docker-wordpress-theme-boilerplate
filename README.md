@@ -7,13 +7,17 @@ This repository is intended to be a configuration of Docker for Wordpress theme 
 If you like it send me a tweet!
 
 ## Important
+
 This is experimental repository, is a base for practice what I have learned with Docker and others environments
 
 ## What include this configuration?
+
 A docker-compose.yml file with the following images configuration:
-- MySQL
+
+- MariaDB
+- PHP
+- nginx
 - Mailhog
-- Wordpress
 
 ## Installation
 
@@ -32,5 +36,3 @@ License
 ----
 
 MIT
-
-

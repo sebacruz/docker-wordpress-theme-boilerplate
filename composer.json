@@ -1,0 +1,44 @@
+{
+    "name": "wilcho-vnz/docker-wordpress-theme-boilerplate",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Wilhelm Siso",
+            "email": "wilhelm.siso@gmail.com"
+        }
+    ],
+    "repositories":[
+        {
+            "type":"composer",
+            "url":"https://wpackagist.org"
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "wordpress/wordpress",
+                "type": "webroot",
+                "version": "4.9.8",
+                "dist": {
+                    "type": "tar",
+                    "url": "https://github.com/WordPress/WordPress/archive/4.9.8.tar.gz"
+                },
+                "require": {
+                    "fancyguy/webroot-installer": "^1.0"
+                }
+            }
+        }
+    ],
+    "extra": {
+        "webroot-dir": "web/wp",
+        "webroot-package": "wordpress/wordpress",
+        "installer-paths": {
+            "web/app/mu-plugins/{$name}/": ["type:wordpress-muplugin"],
+            "web/app/plugins/{$name}/": ["type:wordpress-plugin"],
+            "web/app/themes/{$name}/": ["type:wordpress-theme"]
+        }
+    },
+    "require": {
+        "wordpress/wordpress": "^4.9",
+        "vlucas/phpdotenv": "^2.5"
+    }
+}

@@ -24,3 +24,19 @@ Thumbs.db
 *.rar
 *.tar
 *.zip
+
+# Composer stuff
+/vendor/
+
+# WordPress installed by composer
+/web/wp
+/web/.htaccess
+
+# Plugins that has to be installed with composer
+/web/app/plugins/*
+!/web/app/plugins/.gitkeep
+
+# Uploads and upgrade files that we don' need
+/web/app/upgrade
+/web/app/uploads/*
+!/web/app/uploads/.gitkeep
