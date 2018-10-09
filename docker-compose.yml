@@ -2,39 +2,49 @@ version: '3.3'
 
 services:
   db:
-    image: mysql:5.7
-    volumes:
-      - db_data:/var/lib/mysql
-    # restart: always
-    restart: "no"
+    image: mariadb:10.2
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - ${MYSQL_PORT}:3306
+    volumes:
+      - ./config/mysql.cnf:/etc/mysql/conf.d/custom.cnf
+      - db_data:/var/lib/mysql
+
+  php:
+    build: ./docker/php
+    depends_on:
+      - db
+      - smtp
+    environment:
+      PAGER: 'busybox less'
+    volumes:
+      - ./config/php.ini:/usr/local/etc/php/conf.d/custom.ini
+      - .:/var/www/html
+      # - ./wordpress/:/var/www/html
+
+  nginx:
+    image: nginx:1.15-alpine
+    ports:
+      - ${NGINX_PORT}:${NGINX_PORT}
+    environment:
+      NGINX_PORT: ${NGINX_PORT}
+    volumes:
+      - ./config/nginx.conf:/etc/nginx/conf.d/custom.template
+      - .:/var/www/html
+    command: sh -c "envsubst '$$NGINX_PORT $$NGINX_HOST' < /etc/nginx/conf.d/custom.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
+    depends_on:
+      - php
 
   smtp:
     image: mailhog/mailhog
+    ports:
+      - ${MAILHOG_PORT}:8025
     expose:
-      - 8025
-    ports:
-      - 8025:8025
+      - ${MAILHOG_PORT}
 
-  wordpress:
-    depends_on:
-      - db
-    image: wordpress:latest
-    ports:
-      - "8000:80"
-    # restart: always
-    restart: "no"
-    environment:
-      WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
-      WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
-      WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
-    working_dir: /var/www/html
-    volumes:
-      - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
-      - ./wordpress/:/var/www/html
 volumes:
     db_data:
