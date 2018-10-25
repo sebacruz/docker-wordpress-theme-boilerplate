@@ -39,6 +39,7 @@
     },
     "require": {
         "wordpress/wordpress": "^4.9",
-        "vlucas/phpdotenv": "^2.5"
+        "vlucas/phpdotenv": "^2.5",
+        "wp-cli/wp-cli-bundle": "^2.0"
     }
 }
