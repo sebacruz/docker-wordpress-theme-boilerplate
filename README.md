@@ -15,24 +15,25 @@ This is experimental repository, is a base for practice what I have learned with
 A docker-compose.yml file with the following images configuration:
 
 - MariaDB
-- PHP
+- PHP (with `composer` and `wp-cli`)
 - nginx
 - Mailhog
 
 ## Installation
 
-Clone repository
+To clone and set up the docker instances:
 
 ```sh
 $ git clone https://github.com/wilcho-vnz/docker-wordpress-theme-boilerplate.git
 $ cd docker-wordpress-theme-boilerplate
 $ docker-compose up -d
 ```
+
 ## References
+
 - [Quickstart: Compose and WordPress](https://docs.docker.com/compose/wordpress/)
 - [Docker + WordPress Setup](https://davidyeiser.com/tutorial/docker-wordpress-theme-setup)
 
-License
-----
+# License
 
 MIT
