@@ -19,3 +19,8 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-di
 ENV COMPOSER_ALLOW_SUPERUSER 1
 RUN curl --silent --show-error https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN composer --ansi --version --no-interaction
+
+CMD php-fpm \
+    && composer install \
+    && vendor/bin/wp package install aaemnnosttv/wp-cli-dotenv-command --allow-root \
+    && vendor/bin/wp dotenv salts regenerate --allow-root
